@@ -27,4 +27,27 @@ public class BoardController {
     public String board1() {
         return "board1";
     }
+    @GetMapping("/signup")
+    public String signUpForm() {
+        // 회원가입 폼을 보여주는 로직 추가
+        return "signup"; // signup.html과 연결
+    }
+
+    @PostMapping("/signup")
+    public String signUpProcess() {
+        // 회원가입 데이터를 처리하는 로직 추가
+        return "redirect:/home"; // 회원가입 후 홈으로 리다이렉트
+    }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        // 회원가입 폼을 보여주는 로직 추가
+        return "login"; // signup.html과 연결
+    }
+
+    @PostMapping("/login")
+    public String loginProcess() {
+        // 회원가입 데이터를 처리하는 로직 추가
+        return "redirect:/home"; // 회원가입 후 홈으로 리다이렉트
+    }
 }
