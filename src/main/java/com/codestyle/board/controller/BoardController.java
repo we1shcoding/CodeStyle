@@ -8,16 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
-import java.util.HashMap;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
 
 @Controller
 public class BoardController {
 
-    private BoardService boardService;
-    private SignUpService signUpService;
+    private final BoardService boardService;
+    private final SignUpService signUpService;
 
     @Autowired
     public BoardController(BoardService boardService, SignUpService signUpService) {
@@ -76,22 +74,20 @@ public class BoardController {
         }
     }
 
-    // 이메일 중복 확인
-    @PostMapping("/checkEmailDuplicate")
-    @ResponseBody
-    public boolean checkEmailDuplicate(@RequestParam("email") String email) {
-        return signUpService.existsByEmail(email);
-    }
-
-    // 이름 중복 확인
     @PostMapping("/checkUsernameDuplicate")
     @ResponseBody
-    public boolean checkUsernameDuplicate(@RequestParam("username") String username) {
+    public boolean checkUsernameDuplicate(@RequestBody Map<String, String> body) {
+        String username = body.get("username");
         return signUpService.existsByUsername(username);
     }
-
-    // 로그인 관련 엔드포인트들
+    @PostMapping("/checkEmailDuplicate")
+    @ResponseBody
+    public boolean checkEmailDuplicate(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        return signUpService.existsByEmail(email);
+    }
     @GetMapping("/login")
+    // 로그인 관련 엔드포인트들
     public String loginForm() {
         return "login";
     }

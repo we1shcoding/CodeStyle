@@ -118,7 +118,7 @@ main {
 .signup-form .username-button-container{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 80%;
     margin-bottom: 20px;
 }
 
