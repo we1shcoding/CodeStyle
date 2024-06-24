@@ -36,6 +36,7 @@ dependencies {
 	implementation 'com.oracle.database.security:oraclepki'
 	implementation 'com.oracle.database.security:osdt_core'
 	implementation 'com.oracle.database.security:osdt_cert'
+	implementation 'javax.persistence:javax.persistence-api:2.2'
 }
 
 tasks.named('test') {

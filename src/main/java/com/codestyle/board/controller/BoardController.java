@@ -1,19 +1,29 @@
 package com.codestyle.board.controller;
+
 import com.codestyle.board.entity.BOARD;
+import com.codestyle.board.entity.SIGNUPDATA;
 import com.codestyle.board.service.BoardService;
+import com.codestyle.board.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BoardController {
 
-@Autowired
     private BoardService boardService;
+    private SignUpService signUpService;
 
+    @Autowired
+    public BoardController(BoardService boardService, SignUpService signUpService) {
+        this.boardService = boardService;
+        this.signUpService = signUpService;
+    }
+
+    // 게시판 관련 엔드포인트들
     @GetMapping("/home")
-    public String boardWriteFrom() {
+    public String home() {
         return "home";
     }
 
@@ -27,27 +37,46 @@ public class BoardController {
     public String board1() {
         return "board1";
     }
+
+    // 회원가입 관련 엔드포인트들
     @GetMapping("/signup")
-    public String signUpForm() {
-        // 회원가입 폼을 보여주는 로직 추가
-        return "signup"; // signup.html과 연결
+    public String signUpForm(Model model) {
+        model.addAttribute("signUpData", new SIGNUPDATA());
+        return "signup";
     }
 
     @PostMapping("/signup")
-    public String signUpProcess() {
-        // 회원가입 데이터를 처리하는 로직 추가
-        return "redirect:/home"; // 회원가입 후 홈으로 리다이렉트
+    public String signUpProcess(@ModelAttribute("signUpData") SIGNUPDATA signUpData, Model model) {
+        try {
+            // 사용자명 길이 유효성 검사
+            if (signUpData.getName() != null && signUpData.getName().length() > 8) {
+                throw new Exception("이름은 8자까지만 허용됩니다.");
+            }
+
+            // 이메일 중복 체크
+            if (signUpService.existsByEmail(signUpData.getEmail())) {
+                throw new Exception("이미 존재하는 이메일입니다.");
+            }
+
+            signUpService.signUp(signUpData);
+            model.addAttribute("message", "회원가입이 되었습니다!");
+            return "redirect:/home"; // 회원가입 성공 후 홈 페이지로 리다이렉트
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "signup"; // 실패 시 다시 회원가입 폼으로 돌아감
+        }
     }
 
+
+    // 로그인 관련 엔드포인트들
     @GetMapping("/login")
     public String loginForm() {
-        // 회원가입 폼을 보여주는 로직 추가
-        return "login"; // signup.html과 연결
+        return "login";
     }
 
     @PostMapping("/login")
     public String loginProcess() {
-        // 회원가입 데이터를 처리하는 로직 추가
-        return "redirect:/home"; // 회원가입 후 홈으로 리다이렉트
+        // 로그인 처리 로직
+        return "redirect:/home"; // 로그인 후 홈으로 리다이렉트
     }
 }

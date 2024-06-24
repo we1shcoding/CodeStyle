@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeStyleSignUp</title>
     <link href="/css/stylesignup.css" rel="stylesheet">
+    <script src="/javascript/signupJS.js"></script>
     <link rel="favicon" href="./favicon.ico" type="image/x-icon">
     <script>
         function checkUsername() {
@@ -33,7 +34,7 @@
             <div class="username-field">
                 <label for="username">사용자 이름</label>
                 <div class="username-input">
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="name" maxlength="8" required>
                 </div>
             </div>
 
@@ -56,7 +57,10 @@
         </form>
     </section>
 </main>
-
+<!-- 실패 메시지 출력 -->
+<p style="color: red;">{{ error }}</p>
+<!-- 성공 메시지 출력 -->
+<p style="color: green;">{{ message }}</p>
 <footer>
     <p>&copy; 2024 CodeStyle. All rights reserved.</p>
 </footer>
