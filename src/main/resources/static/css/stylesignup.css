@@ -93,48 +93,42 @@ main {
     display: block;
 }
 
-.signup-form .signup-button-container{
+/* 버튼 컨테이너 설정 */
+.signup-form .username-button-container,
+.signup-form .email-button-container {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 35%; /* 버튼 컨테이너를 100%로 설정하여 가운데 정렬 */
+    margin-bottom: 10px; /* 버튼 사이 여백을 조정 */
 }
 
+/* 공통 버튼 스타일 */
 .signup-form button {
-    width: 80%;
-    padding: 15px;
+    width: 35%; /* 버튼 컨테이너의 너비에 맞추어 60%로 설정 */
+    padding: 13px;
     background-color: #333;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 30px;
 }
 
+/* 버튼들 사이의 여백을 추가할 경우 */
+.signup-form button + button {
+    margin-left: 20px; /* 버튼들 사이 여백을 조정 */
+}
 .signup-form button:hover {
     background-color: #555;
 }
-
-.signup-form .username-button-container{
-    display: flex;
-    justify-content: center;
-    width: 80%;
-    margin-bottom: 20px;
-}
-
-.username-button-container button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.username-button-container button:hover {
-    background-color: #555;
+/* 에러 메시지 설정 */
+#error-message,
+#emailError {
+    color: red;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 /* 페이지 하단 footer 설정 */

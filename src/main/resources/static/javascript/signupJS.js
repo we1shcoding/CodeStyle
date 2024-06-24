@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (response) {
                         errorMessage.textContent = "이미 사용 중인 사용자 이름입니다.";
                     } else {
-                        errorMessage.textContent = "사용할 수 있는 사용자 이름입니다.";
+                        errorMessage.innerHTML = '<span style="color: blue;">사용할 수 있는 사용자 이름입니다.</span>';
                     }
                 } else {
                     errorMessage.textContent = "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (response) {
                         emailError.textContent = "이미 사용 중인 이메일입니다.";
                     } else {
-                        emailError.textContent = "";
+                        emailError.innerHTML = '<span style="color: blue;">사용할 수 있는 이메일입니다.</span>'
                     }
                 } else {
                     emailError.textContent = "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
@@ -85,30 +85,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 회원가입 폼 submit 시
     document.querySelector(".signup-form").addEventListener("submit", function (event) {
-        event.preventDefault();
+        event.preventDefault(); // 기본 submit 동작 막기
 
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
         const confirmPassword = confirmPasswordInput.value.trim();
 
-        // 추가적인 클라이언트 측 검증 로직 (예: 비밀번호 길이, 특수문자 포함 여부 등)
+        // 클라이언트 측 추가적인 유효성 검사 (생략)
 
-        // 서버로 전송
         const xhrSignup = new XMLHttpRequest();
         xhrSignup.open("POST", "/signup", true);
         xhrSignup.setRequestHeader("Content-Type", "application/json");
+
         xhrSignup.onreadystatechange = function () {
             if (xhrSignup.readyState === XMLHttpRequest.DONE) {
                 if (xhrSignup.status === 200) {
-                    signupMessage.textContent = "회원가입 성공!";
-                    signupError.textContent = ""; // 에러 메시지 초기화
+                    const response = JSON.parse(xhrSignup.responseText);
+                    if (response.success) {
+                        signupMessage.textContent = "회원가입 성공!";
+                        signupError.textContent = ""; // 에러 메시지 초기화
+                    } else {
+                        signupMessage.textContent = ""; // 성공 메시지 초기화
+                        signupError.textContent = response.message; // 에러 메시지 출력
+                    }
                 } else {
                     signupMessage.textContent = ""; // 성공 메시지 초기화
-                    signupError.textContent = "회원가입 실패. 서버 오류가 발생했습니다."; // 서버 오류 메시지 출력
+                    signupError.textContent = "회원가입 실패."; // 서버 오류 메시지 출력
                 }
             }
         };
+
         const dataSignup = JSON.stringify({username: username, email: email, password: password});
         xhrSignup.send(dataSignup);
     });
