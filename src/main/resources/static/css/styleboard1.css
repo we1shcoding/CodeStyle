@@ -1,0 +1,219 @@
+/* 전체 body 설정 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    color: #333; /* 기본 텍스트 색상 */
+}
+
+/* 헤더 설정 */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* 검색 폼 왼쪽 정렬 */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* 검색 폼을 왼쪽으로 정렬하기 위해 margin-left를 사용 */
+}
+
+.search-form input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search-form button[type="submit"] {
+    background-color: #646464;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-right: 10px; /* 수정: 검색 필드와 버튼 사이 여백 조정 */
+    transition: background-color 0.3s;
+}
+
+.search-form button[type="submit"]:hover {
+    background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
+    color: #0c0c0c;
+}
+
+/* 로그인, 회원가입 버튼 */
+.auth-forms {
+    display: flex;
+}
+
+.auth-forms button {
+    background-color: #646464;
+    color: #fff;
+    border: none;
+    padding: 8px 15px; /* 수정: 검색 버튼과 동일한 패딩 설정 */
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 5px; /* 수정: 버튼 사이 여백 조정 */
+    transition: background-color 0.3s;
+}
+
+.auth-forms button:hover {
+    background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
+    color: #0c0c0c;
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #333; /* 검정 배경색 */
+    color: #fff; /* 텍스트 색상을 흰색으로 설정 */
+}
+
+.text-overlay {
+    text-align: center;
+}
+
+.text-overlay h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.text-overlay p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* 컨테이너 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 98%;
+    max-width: 1800px;
+    margin: 20px auto; /* 위아래 여백 설정 및 가운데 정렬을 위해 auto 추가 */
+    min-height: calc(100vh - 110px); /* 푸터의 높이(footer의 padding-top + padding-bottom)까지 간격을 확보 */
+}
+
+/* 게시판 헤더 */
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.board-header h2 {
+    margin: 0;
+}
+
+/* 게시판 액션 */
+.board-actions {
+    display: flex;
+    align-items: center;
+}
+
+.board-actions form {
+    display: flex;
+    margin-left: auto;
+}
+
+.board-actions input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.board-actions button[type="submit"] {
+    background-color: #646464;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.board-actions button:hover {
+    background-color: #f0f0f0;
+    color: #0c0c0c;
+}
+
+/* 포스트 */
+.post {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.post p {
+    color: #333;
+    line-height: 1.6;
+}
+
+.post a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.post a:hover {
+    text-decoration: underline;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.page-info {
+    font-size: 14px;
+}
+
+.page-nav button {
+    margin-left: 10px;
+}
+
+/* 푸터 */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}

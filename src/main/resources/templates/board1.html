@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeStyle 게시판</title>
+    <link rel="stylesheet" href="/css/styleboard1.css">
+</head>
+<style>
+    .layout {
+        width : 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+    .layout input {
+        width : 100%;
+        box-sizing: border-box;
+    }
+
+    .layout textarea {
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+<body>
+
+<div class="image-container">
+    <div class="text-overlay">
+        <h2>Hello, World!</h2>
+        <p>개발자들의 커뮤니티<br>코드 스타일 입니다.</p>
+    </div>
+</div>
+
+<div class="container">
+    <header class="board-header">
+        <h2>자유 게시판</h2>
+        <div class="board-actions">
+            <button onclick="location.href='/new-post'">글 작성</button>
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="검색어 입력">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </header>
+    <div class="layout">
+        <form action="/board/writepro" method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="TITLE" required>
+            <br>
+            <label for="content">Content:</label>
+            <textarea id="content" name="CONTENT" required></textarea>
+            <br>
+            <button type="submit">작성</button>
+        </form>
+    </div>
+    <main class="posts">
+        <article class="post">
+            <h3>이진 탐색 알고리즘을 구현하는 방법?</h3>
+            <p>JavaScript에서 이진 탐색 알고리즘을 구현하는 방법에 대해 설명해 주세요.</p>
+            <div class="post-meta">
+                <p>작성자: 코드마스터 | 작성 시간: 2024-06-20 13:30</p>
+            </div>
+            <a href="#">더 읽기</a>
+        </article>
+        <article class="post">
+            <h3>JavaScript에서 let과 var의 차이점은 무엇인가요?</h3>
+            <p>JavaScript에서 let과 var을 모두 본 적이 있습니다. 이들의 주요 차이점은 무엇인가요?</p>
+            <div class="post-meta">
+                <p>작성자: 코드킹 | 작성 시간: 2024-06-19 10:45</p>
+            </div>
+            <a href="#">더 읽기</a>
+        </article>
+    </main>
+
+    <div class="pagination">
+        <div class="page-info">
+            총 게시물 2건 현재 페이지 1/1
+        </div>
+        <div class="page-nav">
+            <button disabled>이전</button>
+            <button disabled>다음</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 CodeStyle. All rights reserved.</p>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeStyle</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="favicon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body>
+<header>
+    <h1>CodeStyle</h1>
+    <nav>
+        <a href="#">공지사항</a>
+        <a href="#">자유 게시판</a>
+        <a href="#">질문 게시판</a>
+        <a href="#">자료 공유 게시판</a>
+        <a href="#">코드 리뷰 게시판</a>
+    </nav>
+    <!-- 검색 폼 추가 -->
+    <form action="/search" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="검색어 입력">
+        <button type="submit">검색</button>
+    </form>
+    <div class="auth-forms">
+        <section class="Login-form">
+            <form>
+                <div class="buttons">
+                    <button type="button" class="buttons1" onclick="location.href='/login'">로그인</button>
+                    <button type="button" class="buttons1" onclick="location.href='/signup'">회원가입</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</header>
+
+<div class="image-overlay">
+    <img src="/css/코딩.jpg" alt="bodyimage">
+    <div class="overlay-text">
+        <h2>여러 프로그래머들과 대화를 나눠보세요!</h2>
+        <p>프로그래머들이 기술을 공유하고 소통하는 공간입니다.</p>
+        <p>초심자부터 전문 개발자까지 모두 환영합니다.</p>
+    </div>
+</div>
+
+
+<!-- 푸터 -->
+<footer>
+    <p>&copy; 2024 CodeStyle. All rights reserved.</p>
+</footer>
+</body>
+</html>
