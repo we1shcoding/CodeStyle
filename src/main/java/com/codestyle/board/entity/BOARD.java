@@ -14,7 +14,6 @@ public class BOARD {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 또는 SEQUENCE
     private Long ID;
-
     private String TITLE;
     private String CONTENT;
 }

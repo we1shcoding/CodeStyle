@@ -14,12 +14,17 @@ public class BoardController {
 
     @GetMapping("/home")
     public String boardWriteFrom() {
-        return "board1";
+        return "home";
     }
 
     @PostMapping("/board/writepro")
     public String boardWrite(BOARD board) {
         boardService.write(board);
         return "redirect:/home";
+    }
+
+    @GetMapping("/board1")
+    public String board1() {
+        return "board1";
     }
 }
