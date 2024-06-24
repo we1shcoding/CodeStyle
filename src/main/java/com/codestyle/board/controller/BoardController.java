@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.HashMap;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 @Controller
 public class BoardController {
@@ -48,9 +52,14 @@ public class BoardController {
     @PostMapping("/signup")
     public String signUpProcess(@ModelAttribute("signUpData") SIGNUPDATA signUpData, Model model) {
         try {
-            // 사용자명 길이 유효성 검사
+            // 사용자명 길이 유효성 검사 (이 예시에서는 이름을 사용자명으로 가정)
             if (signUpData.getName() != null && signUpData.getName().length() > 8) {
                 throw new Exception("이름은 8자까지만 허용됩니다.");
+            }
+
+            // 사용자명 중복 체크
+            if (signUpService.existsByUsername(signUpData.getName())) {
+                throw new Exception("이미 사용중인 이름입니다.");
             }
 
             // 이메일 중복 체크
@@ -67,6 +76,19 @@ public class BoardController {
         }
     }
 
+    // 이메일 중복 확인
+    @PostMapping("/checkEmailDuplicate")
+    @ResponseBody
+    public boolean checkEmailDuplicate(@RequestParam("email") String email) {
+        return signUpService.existsByEmail(email);
+    }
+
+    // 이름 중복 확인
+    @PostMapping("/checkUsernameDuplicate")
+    @ResponseBody
+    public boolean checkUsernameDuplicate(@RequestParam("username") String username) {
+        return signUpService.existsByUsername(username);
+    }
 
     // 로그인 관련 엔드포인트들
     @GetMapping("/login")
