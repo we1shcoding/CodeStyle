@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     const authLinks = document.getElementById('auth-links');
 
-    // 초기 로그인 상태 확인
+    if (!authLinks) {
+        console.error('Element with id "auth-links" not found.');
+        return;
+    }
+
+    // 함수 정의: 팝업 메시지 표시
+    function showPopupMessage(username) {
+        const message = `${username} 님 로그인 성공!`;
+        alert(message);
+    }
+
+    // 로그인 상태 확인 (서버에서 가져오는 것으로 가정)
     fetch('/auth-status', {
         method: 'GET',
         headers: {
@@ -10,7 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
     })
         .then(response => response.json())
         .then(data => {
-            updateAuthLinks(data.loggedIn, data.username); // loggedIn과 username 전달
+            console.log(data); // 데이터 로깅
+            if (data.loggedIn && data.username) {
+                const username = data.username;
+                showPopupMessage(username); // 팝업 메시지 표시
+                authLinks.innerHTML = `<button type="button" class="logout-button">로그아웃</button>`;
+            } else {
+                authLinks.innerHTML = '<form><button type="button" class="buttons1" onclick="location.href=\'/login\'">로그인</button><button type="button" class="buttons1" onclick="location.href=\'/signup\'">회원가입</button></form>';
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -33,12 +51,4 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => console.error('Error:', error));
         }
     });
-
-    function updateAuthLinks(loggedIn, username) {
-        if (loggedIn) {
-            authLinks.innerHTML = `<form><span>${username} 님 환영합니다!</span><button type="button" class="logout-button">로그아웃</button></form>`;
-        } else {
-            authLinks.innerHTML = '<form><button type="button" class="buttons1" onclick="location.href=\'/login\'">로그인</button><button type="button" class="buttons1" onclick="location.href=\'/signup\'">회원가입</button></form>';
-        }
-    }
 });

@@ -142,7 +142,6 @@ public class BoardController {
                 session.setAttribute("username", username); // 세션에 사용자 이름 저장
 
                 response.put("success", true);
-                response.put("message", "로그인 성공");
                 return ResponseEntity.ok(response);
             } else {
                 response.put("success", false);
