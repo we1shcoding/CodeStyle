@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "BOARD")
 
-public class BOARD {
+public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 또는 SEQUENCE
     private Long ID;

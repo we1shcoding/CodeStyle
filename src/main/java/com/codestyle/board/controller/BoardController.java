@@ -1,7 +1,7 @@
 package com.codestyle.board.controller;
 
-import com.codestyle.board.entity.BOARD;
-import com.codestyle.board.entity.SIGNUPDATA;
+import com.codestyle.board.entity.Board;
+import com.codestyle.board.entity.SignUpdata;
 import com.codestyle.board.service.BoardService;
 import com.codestyle.board.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,10 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWrite(BOARD board) {
+    public String boardWrite(Board board) {
         boardService.write(board);
-        return "redirect:/home";
+//        return "redirect:/home";
+        return "board1";
     }
 
     @GetMapping("/board1")
@@ -48,7 +49,7 @@ public class BoardController {
     // 회원가입 관련 엔드포인트들
     @GetMapping("/signup")
     public String signUpForm(Model model) {
-        model.addAttribute("signUpData", new SIGNUPDATA());
+        model.addAttribute("signUpData", new SignUpdata());
         return "signup";
     }
 
@@ -81,7 +82,7 @@ public class BoardController {
             }
 
             // 서비스 레이어에서 회원가입 처리
-            SIGNUPDATA data = new SIGNUPDATA();
+            SignUpdata data = new SignUpdata();
             data.setName(username);
             data.setEmail(email);
             data.setPassword(password);

@@ -1,6 +1,6 @@
 package com.codestyle.board.service;
 
-import com.codestyle.board.entity.SIGNUPDATA;
+import com.codestyle.board.entity.SignUpdata;
 import com.codestyle.board.repository.SignUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class SignUpService {
     }
 
     @Transactional
-    public void signUp(SIGNUPDATA signUpData) throws Exception {
+    public void signUp(SignUpdata signUpData) throws Exception {
         // 사용자명 중복 체크
         if (existsByUsername(signUpData.getName())) {
             throw new Exception("이미 사용중인 이름입니다.");
@@ -45,9 +45,9 @@ public class SignUpService {
     }
 
     public boolean authenticate(String email, String password) throws Exception {
-        Optional<SIGNUPDATA> userOpt = signUpRepository.findByEmail(email);
+        Optional<SignUpdata> userOpt = signUpRepository.findByEmail(email);
         if (userOpt.isPresent()) {
-            SIGNUPDATA user = userOpt.get();
+            SignUpdata user = userOpt.get();
             // 비밀번호 검증 (그냥 단순 문자열만 비교)
             return user.getPassword().equals(password);
         } else {
@@ -56,7 +56,7 @@ public class SignUpService {
     }
 
     public String getUsernameByEmail(String email) {
-        Optional<SIGNUPDATA> userOpt = signUpRepository.findByEmail(email);
-        return userOpt.map(SIGNUPDATA::getName).orElse(null);
+        Optional<SignUpdata> userOpt = signUpRepository.findByEmail(email);
+        return userOpt.map(SignUpdata::getName).orElse(null);
     }
 }

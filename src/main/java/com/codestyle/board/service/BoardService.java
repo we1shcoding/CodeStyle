@@ -1,5 +1,5 @@
 package com.codestyle.board.service;
-import com.codestyle.board.entity.BOARD;
+import com.codestyle.board.entity.Board;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import com.codestyle.board.repository.BoardRepository;
@@ -18,7 +18,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void write(BOARD board) {
+    public void write(Board board) {
         boardRepository.save(board);
     }
 
