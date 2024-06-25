@@ -100,8 +100,7 @@ button {
 }
 
 button:hover {
-    background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
-    color:#0c0c0c;
+    background-color: #555;
 }
 
 .login-form .login-button-container{

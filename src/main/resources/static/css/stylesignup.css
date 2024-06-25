@@ -121,9 +121,16 @@ main {
     margin-left: 20px; /* 버튼들 사이 여백을 조정 */
 }
 .signup-form button:hover {
-    background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
-    color:#0c0c0c;
+    background-color: #555;
 }
+
+/* 중복체크 버튼 특정 스타일 */
+#checkUsernameBtn:hover,
+#checkEmailBtn:hover {
+    background-color: #555;
+}
+
+
 /* 에러 메시지 설정 */
 #error-message,
 #emailError {
