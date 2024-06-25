@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
-
 
 @Controller
 public class BoardController {
@@ -112,15 +112,15 @@ public class BoardController {
         return signUpService.existsByEmail(email);
     }
 
-    @GetMapping("/login")
     // 로그인 관련 엔드포인트들
+    @GetMapping("/login")
     public String loginForm() {
         return "login";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> loginProcess(@RequestBody Map<String, String> loginData) {
+    public ResponseEntity<Map<String, Object>> loginProcess(@RequestBody Map<String, String> loginData, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
 
         try {
@@ -135,6 +135,12 @@ public class BoardController {
             boolean isAuthenticated = signUpService.authenticate(email, password);
 
             if (isAuthenticated) {
+                // 사용자 이름 가져오기
+                String username = signUpService.getUsernameByEmail(email);
+
+                session.setAttribute("loggedIn", true); // 세션에 로그인 상태 저장
+                session.setAttribute("username", username); // 세션에 사용자 이름 저장
+
                 response.put("success", true);
                 response.put("message", "로그인 성공");
                 return ResponseEntity.ok(response);
@@ -148,5 +154,23 @@ public class BoardController {
             response.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @GetMapping("/auth-status")
+    @ResponseBody
+    public Map<String, Object> getAuthStatus(HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Object loggedIn = session.getAttribute("loggedIn");
+        Object username = session.getAttribute("username");
+        response.put("loggedIn", loggedIn != null && (boolean) loggedIn);
+        response.put("username", username != null ? username.toString() : null);
+        return response;
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loggedIn"); // 로그인 상태 제거
+        session.removeAttribute("username"); // 사용자 이름 제거
+        return "redirect:/home";
     }
 }

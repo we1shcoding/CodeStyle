@@ -5,11 +5,13 @@ import com.codestyle.board.repository.SignUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
 @Transactional
 public class SignUpService {
+
     private final SignUpRepository signUpRepository;
 
     @Autowired
@@ -41,14 +43,20 @@ public class SignUpService {
 
         signUpRepository.save(signUpData);
     }
+
     public boolean authenticate(String email, String password) throws Exception {
         Optional<SIGNUPDATA> userOpt = signUpRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             SIGNUPDATA user = userOpt.get();
-            // 비밀번호 검증 (이 예시에서는 단순 문자열 비교)
+            // 비밀번호 검증 (그냥 단순 문자열만 비교)
             return user.getPassword().equals(password);
         } else {
             return false;
         }
+    }
+
+    public String getUsernameByEmail(String email) {
+        Optional<SIGNUPDATA> userOpt = signUpRepository.findByEmail(email);
+        return userOpt.map(SIGNUPDATA::getName).orElse(null);
     }
 }

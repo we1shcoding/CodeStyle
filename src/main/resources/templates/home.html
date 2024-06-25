@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeStyle</title>
     <link href="/css/style.css" rel="stylesheet">
+    <script src="/javascript/auth.js"></script>
     <link rel="favicon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -23,15 +24,8 @@
         <input type="text" name="q" placeholder="검색어 입력">
         <button type="submit">검색</button>
     </form>
-    <div class="auth-forms">
-        <section class="Login-form">
-            <form>
-                <div class="buttons">
-                    <button type="button" class="buttons1" onclick="location.href='/login'">로그인</button>
-                    <button type="button" class="buttons1" onclick="location.href='/signup'">회원가입</button>
-                </div>
-            </form>
-        </section>
+    <div id="auth-links">
+        <!-- 로그인/회원가입 또는 로그아웃 버튼이 여기 동적으로 표시됨 -->
     </div>
 </header>
 
@@ -44,10 +38,44 @@
     </div>
 </div>
 
-
 <!-- 푸터 -->
 <footer>
     <p>&copy; 2024 CodeStyle. All rights reserved.</p>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/auth-status', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const authLinks = document.getElementById('auth-links');
+                if (data.loggedIn) {
+                    authLinks.innerHTML = '<button onclick="logout()">로그아웃</button>';
+                } else {
+                    authLinks.innerHTML = '<button onclick="location.href=\'/login\'">로그인</button> <button onclick="location.href=\'/signup\'">회원가입</button>';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    function logout() {
+        fetch('/logout', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(() => {
+                window.location.href = '/home';
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
 </body>
 </html>
