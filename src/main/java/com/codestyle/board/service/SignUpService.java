@@ -41,4 +41,14 @@ public class SignUpService {
 
         signUpRepository.save(signUpData);
     }
+    public boolean authenticate(String email, String password) throws Exception {
+        Optional<SIGNUPDATA> userOpt = signUpRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+            SIGNUPDATA user = userOpt.get();
+            // 비밀번호 검증 (이 예시에서는 단순 문자열 비교)
+            return user.getPassword().equals(password);
+        } else {
+            return false;
+        }
+    }
 }

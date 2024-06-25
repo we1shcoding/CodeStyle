@@ -51,6 +51,7 @@ public class BoardController {
         model.addAttribute("signUpData", new SIGNUPDATA());
         return "signup";
     }
+
     @PostMapping("/signup")
     @ResponseBody // JSON 응답을 위해 필요
     @Transactional
@@ -118,8 +119,34 @@ public class BoardController {
     }
 
     @PostMapping("/login")
-    public String loginProcess() {
-        // 로그인 처리 로직
-        return "redirect:/home"; // 로그인 후 홈으로 리다이렉트
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> loginProcess(@RequestBody Map<String, String> loginData) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            String email = loginData.get("email");
+            String password = loginData.get("password");
+
+            if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+                throw new Exception("이메일과 비밀번호를 입력해주세요.");
+            }
+
+            // 서비스 레이어에서 로그인 처리
+            boolean isAuthenticated = signUpService.authenticate(email, password);
+
+            if (isAuthenticated) {
+                response.put("success", true);
+                response.put("message", "로그인 성공");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("success", false);
+                response.put("message", "이메일 또는 비밀번호가 잘못되었습니다.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }
