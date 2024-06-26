@@ -27,6 +27,29 @@ header h1 {
     margin: 0;
 }
 
+/* 네비게이션 중앙 정렬 */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 가로 중앙 정렬 */
+    flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
+    margin-left: auto; /* 검색 폼을 왼쪽으로 정렬하기 위해 margin-left를 사용 */
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #f0f0f0;
+    color: #0c0c0c;
+}
+
 /* 검색 폼 왼쪽 정렬 */
 .search-form {
     display: flex;
@@ -54,7 +77,7 @@ header h1 {
 
 .search-form button[type="submit"]:hover {
     background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
-    color: #0c0c0c;
+    color:#0c0c0c;
 }
 
 /* 로그인, 회원가입 버튼 */
@@ -84,7 +107,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 250px;
     background-color: #333; /* 검정 배경색 */
     color: #fff; /* 텍스트 색상을 흰색으로 설정 */
 }
@@ -159,18 +182,75 @@ header h1 {
 }
 
 .board-actions button:hover {
-    background-color: #f0f0f0;
-    color: #0c0c0c;
+    background-color: #555;
+    color: #ffffff;
 }
 
+/* 레이아웃 */
+.layout {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* 작성 폼 */
+.write-form {
+    flex: 1;
+    max-width: 250px; /* 작성 폼의 최대 너비 */
+    margin-right: 120px; /* 게시글 목록과의 간격 증가 */
+
+}
+
+.write-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.write-form input[type="text"],
+.write-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.write-form textarea {
+    height: 300px; /* 텍스트 영역의 높이를 증가시킴 */
+}
+.write-form button[type="submit"] {
+    background-color: #646464;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.write-form button[type="submit"]:hover {
+    background-color: #555555;
+    color: #f0f0f0;
+}
 
 /* 포스트 */
+.posts {
+    flex: 3; /* 게시물 목록이 작성 폼보다 넓게 설정 */
+}
+
+.posts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+}
+
 .post {
     background-color: #fff;
     padding: 20px;
-    margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 20px); /* 너비를 더 길게 설정 */
+
+    display: flex;
+    flex-direction: column;
 }
 
 .post h3 {
@@ -181,11 +261,13 @@ header h1 {
 .post p {
     color: #333;
     line-height: 1.6;
+    flex-grow: 1;
 }
 
 .post a {
     color: #007BFF;
     text-decoration: none;
+    align-self: flex-end;
 }
 
 .post a:hover {
@@ -197,7 +279,7 @@ header h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 80px;
 }
 
 .page-info {

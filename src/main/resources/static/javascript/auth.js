@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.loggedIn && data.username) {
                 const username = data.username;
                 showPopupMessage(username); // 팝업 메시지 표시
-                authLinks.innerHTML = `<button type="button" class="logout-button">로그아웃</button>`;
+                authLinks.innerHTML = `<button type="button" class="buttons1">로그아웃</button>`;
             } else {
                 authLinks.innerHTML = '<form><button type="button" class="buttons1" onclick="location.href=\'/login\'">로그인</button><button type="button" class="buttons1" onclick="location.href=\'/signup\'">회원가입</button></form>';
             }

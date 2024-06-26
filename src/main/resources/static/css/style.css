@@ -79,26 +79,25 @@ nav a:hover {
     color:#0c0c0c;
 }
 
-/* 로그인, 회원가입, 검색 버튼 */
-.buttons {
-    display: flex;
-}
 
-.buttons button {
+
+/* 로그인 및 회원가입 버튼 스타일 */
+.buttons1 {
     background-color: #646464;
     color: #fff;
     border: none;
-    padding: 8px 15px; /* 수정: 검색 버튼과 동일한 패딩 설정 */
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 3px;
-    margin-left: 5px; /* 수정: 버튼 사이 여백 조정 */
-    transition: background-color 0.3s;
+    margin-left: 5px; /* 버튼 사이 여백 조정 */
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.buttons button:hover {
-    background-color: #ffffff; /* Hover 시 배경색 약간 어둡게 */
-    color:#0c0c0c;
+.buttons1:hover {
+    background-color: #ffffff; /* Hover 시 배경색 밝게 */
+    color: #0c0c0c; /* Hover 시 글자색 어둡게 */
 }
+
 
 /* 이미지 스타일 */
 img {
