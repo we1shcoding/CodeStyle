@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @Controller
 public class BoardController {
@@ -34,16 +35,50 @@ public class BoardController {
         return "home";
     }
 
-    @PostMapping("/board/writepro")
-    public String boardWrite(Board board) {
-        boardService.write(board);
-//        return "redirect:/home";
-        return "board1";
+    @GetMapping("/write")
+    public String showWriteForm(Model model) {
+        model.addAttribute("board", new Board()); // 폼 데이터를 바인딩할 빈 Board 객체 생성
+        return "board1"; // board1.html을 응답으로 보냄
     }
 
+    // 게시글 작성 처리
+    @PostMapping("/write")
+    public String handleWriteForm(@ModelAttribute("board") Board board, HttpSession session) {
+        try {
+            // 세션에서 사용자 이름을 가져옴
+            String username = (String) session.getAttribute("username");
+
+            if (username == null) {
+                // 로그인이 되어 있지 않은 경우 로그인 페이지로 리다이렉트
+                return "redirect:/login";
+            }
+
+            // 사용자명을 Board 객체에 설정
+            board.setWriter(username);
+
+            // Board 객체의 content 필드 검증
+            if (board.getContent() == null || board.getContent().isEmpty()) {
+                throw new IllegalArgumentException("내용을 입력해주세요.");
+            }
+
+            // Board 작성 서비스 메소드 호출
+            boardService.saveBoard(board); // 데이터베이스에 게시글 저장
+
+            // 게시글 작성 후 게시글 목록 페이지로 리다이렉트
+            return "redirect:/board1"; // 수정: board1 페이지로 리다이렉트
+        } catch (Exception e) {
+            // 예외 발생 시 처리
+            e.printStackTrace(); // 또는 로그로 기록
+            return "error"; // 예외 발생 시 에러 페이지로 리다이렉트 또는 에러 메시지 반환
+        }
+    }
+
+    // 게시글 목록 페이지
     @GetMapping("/board1")
-    public String board1() {
-        return "board1";
+    public String showBoardList(Model model) {
+        List<Board> boardList = boardService.getAllBoards(); // 모든 게시글 가져오기
+        model.addAttribute("boardList", boardList);
+        return "board1"; // board1.html에 게시글 목록을 보여주기 위해 boardList를 전달
     }
 
     // 회원가입 관련 엔드포인트들
