@@ -35,12 +35,10 @@ public class SignUpService {
         if (existsByUsername(signUpData.getName())) {
             throw new Exception("이미 사용중인 이름입니다.");
         }
-
         // 이메일 중복 체크
         if (existsByEmail(signUpData.getEmail())) {
             throw new Exception("이미 존재하는 이메일입니다.");
         }
-
         signUpRepository.save(signUpData);
     }
 
@@ -60,3 +58,5 @@ public class SignUpService {
         return userOpt.map(SignUpdata::getName).orElse(null);
     }
 }
+
+

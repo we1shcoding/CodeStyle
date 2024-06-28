@@ -15,11 +15,10 @@ public class SignUpdata {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "name") // 사용자명 필드 추가
+    @Column(name = "name")
     private String name;
 
     @Column(name = "password")
     private String password;
-
-    // Getter와 Setter 메서드
 }
+

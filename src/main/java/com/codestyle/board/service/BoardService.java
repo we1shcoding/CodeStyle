@@ -1,5 +1,4 @@
 package com.codestyle.board.service;
-
 import com.codestyle.board.entity.Board;
 import com.codestyle.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 
 @Service
 public class BoardService {
-
     private final BoardRepository boardRepository;
 
     @Autowired
@@ -29,3 +27,4 @@ public class BoardService {
         return boardRepository.findAll(); // 모든 Board 객체 조회
     }
 }
+
